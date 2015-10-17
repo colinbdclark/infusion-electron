@@ -2,6 +2,7 @@
     "name": "infusion-electron",
     "description": "Infusion component wrappers for Atom Electron",
     "version": "0.1.0",
+    "main": "index.js",
     "author": "Colin Clark",
     "license": "BSD-3-Clause",
     "repository": "git://github.com/colinbdclark/infusion-electron.git",
