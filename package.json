@@ -1,0 +1,23 @@
+{
+    "name": "infusion-electron",
+    "description": "Infusion component wrappers for Atom Electron",
+    "version": "0.1.0",
+    "author": "Colin Clark",
+    "license": "BSD-3-Clause",
+    "repository": "git://github.com/colinbdclark/infusion-electron.git",
+    "bugs": "http://github.com/colinbdclark/infusion-electron/issues",
+    "homepage": "http://github.com/colinbdclark/infusion-electron",
+    "readmeFilename": "README.md",
+    "dependencies": {
+        "infusion": "2.0.0-dev.20151007T134312Z.8c33cd4",
+        "dedupe-infusion": "1.0.0",
+        "electron-prebuilt": "0.33.7"
+    },
+    "devDependencies": {
+        "grunt-contrib-jshint": "0.9.0",
+        "grunt": "0.4.5"
+    },
+    "scripts": {
+        "dedupe-infusion": "node -e \"require('dedupe-infusion')();\""
+    }
+}
