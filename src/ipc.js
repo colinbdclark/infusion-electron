@@ -19,6 +19,8 @@ var fluid = fluid || require("infusion");
 
     var electron = fluid.registerNamespace("electron");
 
+    electron.ipc = require("ipc");
+
     electron.ipcSender = function (channel, target) {
         var args = [channel];
 
@@ -39,7 +41,7 @@ var fluid = fluid || require("infusion");
     };
 
     electron.ipcRelay = function (channel, target) {
-        require("ipc").on(channel, electron.ipcSender(channel, target));
+        electron.ipc.on(channel, electron.ipcSender(channel, target));
     };
 
 
@@ -48,13 +50,8 @@ var fluid = fluid || require("infusion");
 
         channel: "message", // User-specified.
 
-        mergePolicy: {
-            "members.ipc": "nomerge",
-            "members.target": "nomerge"
-        },
-
         members: {
-            ipc: require("ipc"),
+            ipc: electron.ipc,
             target: "{that}.ipc",
             sender: "@expand:electron.ipcSender({that}.options.channel, {that}.target)"
         },

@@ -14,7 +14,11 @@ https://github.com/colinbdclark/infusion-electron/raw/master/LICENSE.txt
 var fluid = require("infusion"),
     electron = fluid.registerNamespace("electron");
 
+electron.appSingleton = require("app");
+
 // Monkey-patch fluid.log for Electron's broken console.log.
+// Electron's implementation only prints out the first argument:
+// https://github.com/atom/electron/issues/1368
 fluid.doLog = function (args) {
     if (typeof (console) !== "undefined") {
         if (console.debug) {
@@ -30,7 +34,7 @@ fluid.defaults("electron.app", {
     gradeNames: "fluid.modelComponent",
 
     members: {
-        app: require("app")
+        app: electron.appSingleton
     },
 
     commandLineSwitches: {},
@@ -45,21 +49,15 @@ fluid.defaults("electron.app", {
     },
 
     listeners: {
-        onCreate: [
+        "onCreate.setCommandLineSwitches": [
             {
                 funcName: "electron.app.setCommandLineSwitches",
                 args: ["{that}.app", "{that}.options.commandLineSwitches"]
-            },
-            {
-                "this": "{that}.app",
-                method: "on",
-                args: ["window-all-closed", "{that}.events.onAllWindowsClosed.fire"]
-            },
-            {
-                "this": "{that}.app",
-                method: "on",
-                args: ["ready", "{that}.events.onReady.fire"]
             }
+        ],
+
+        "onCreate.bindAppEvents": [
+            "electron.app.bindAppEvents({that}.app, {that}.events)"
         ],
 
         onAllWindowsClosed: [
@@ -68,7 +66,14 @@ fluid.defaults("electron.app", {
     }
 });
 
+electron.app.bindAppEvents = function (app, events) {
+    app.on("window-all-closed", events.onAllWindowsClosed.fire);
+    app.on("ready", events.onReady.fire);
+};
+
 electron.app.handleAllWindowsClosed = function (app) {
+    // On the Macintosh, in contrast to Linux and Windows,
+    // applications should not quit when all their windows have been closed.
     if (process.platform !== "darwin") {
         app.quit();
     }
