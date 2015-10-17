@@ -12,8 +12,8 @@ https://github.com/colinbdclark/infusion-electron/raw/master/LICENSE.txt
 "use strict";
 
 var fluid = require("infusion");
-require("src/app.js");
-require("src/core.js");
-require("src/window.js");
+require("./src/app.js");
+require("./src/core.js");
+require("./src/window.js");
 
 module.exports = fluid.registerNamespace("electron");
