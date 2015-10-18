@@ -15,8 +15,8 @@ var fluid = require("infusion");
 
 var electron = fluid.registerNamespace("electron");
 
-require("./src/app.js");
 require("./src/ipc.js");
-require("./src/window.js");
+require("./src/main-thread/app.js");
+require("./src/main-thread/window.js");
 
 module.exports = electron;

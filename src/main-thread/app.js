@@ -16,20 +16,6 @@ var fluid = require("infusion"),
 
 electron.appSingleton = require("app");
 
-// Monkey-patch fluid.log for Electron's broken console.log.
-// Electron's implementation only prints out the first argument:
-// https://github.com/atom/electron/issues/1368
-fluid.doLog = function (args) {
-    if (typeof (console) !== "undefined") {
-        if (console.debug) {
-            console.debug(args.join(" "));
-        } else if (typeof (console.log) === "function") {
-            console.log(args.join(" "));
-        }
-    }
-};
-
-
 fluid.defaults("electron.app", {
     gradeNames: "fluid.modelComponent",
 
