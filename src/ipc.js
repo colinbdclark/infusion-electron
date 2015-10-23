@@ -31,19 +31,11 @@ var fluid = fluid || require("infusion");
                 args[i] = arguments[i - 1];
             }
 
-            // TODO: This will cause an error if "target"
-            // is a window that has already been closed.
-            // This needs to be fixed.
             if (target) {
                 target.send.apply(target, args);
             }
         };
     };
-
-    electron.ipcRelay = function (channel, target) {
-        electron.ipc.on(channel, electron.ipcSender(channel, target));
-    };
-
 
     fluid.defaults("electron.ipcComponent", {
         gradeNames: "fluid.component",
@@ -52,13 +44,36 @@ var fluid = fluid || require("infusion");
 
         members: {
             ipc: electron.ipc,
-            target: "{that}.ipc",
+            source: electron.ipc,
+            target: electron.ipc,
             sender: "@expand:electron.ipcSender({that}.options.channel, {that}.target)"
         },
 
         invokers: {
+            /**
+             * Sends an IPC message to the target on
+             * the channel specified in the component's "channel" option.
+             */
             send: {
                 func: "{that}.sender"
+            },
+
+            /**
+             * Starts listening to IPC messages from the source object.
+             */
+            start: {
+                "this": "{that}.source",
+                method: "on",
+                args: ["{that}.options.channel", "{that}.events.onMessage.fire"]
+            },
+
+            /**
+             * Stops listening to IPC messages from the source object.
+             */
+            stop: {
+                "this": "{that}.source",
+                method: "removeListener",
+                args: ["{that}.options.channel", "{that}.events.onMessage.fire"]
             }
         },
 
@@ -68,10 +83,18 @@ var fluid = fluid || require("infusion");
 
         listeners: {
             onCreate: [
+                "{that}.start()"
+            ]
+        }
+    });
+
+    fluid.defaults("electron.ipcMessageRelayer", {
+        gradeNames: ["electron.ipcComponent", "fluid.modelComponent"],
+
+        listeners: {
+            onMessage: [
                 {
-                    "this": "{that}.ipc",
-                    method: "on",
-                    args: ["{that}.options.channel", "{that}.events.onMessage.fire"]
+                    func: "{that}.send"
                 }
             ]
         }
