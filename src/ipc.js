@@ -82,8 +82,12 @@ var fluid = fluid || require("infusion");
         },
 
         listeners: {
-            onCreate: [
+            "onCreate.startRelaying": [
                 "{that}.start()"
+            ],
+
+            "onDestroy.stopRelaying": [
+                "{that}.stop()"
             ]
         }
     });
