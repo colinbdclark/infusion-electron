@@ -19,7 +19,7 @@ var fluid = fluid || require("infusion");
 
     var electron = fluid.registerNamespace("electron");
 
-    electron.ipc = require("ipc");
+    electron.ipc = require("electron").ipcMain;
 
     electron.ipcSender = function (channel, target) {
         var args = [channel];

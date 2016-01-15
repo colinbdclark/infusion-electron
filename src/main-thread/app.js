@@ -14,7 +14,7 @@ https://github.com/colinbdclark/infusion-electron/raw/master/LICENSE.txt
 var fluid = require("infusion"),
     electron = fluid.registerNamespace("electron");
 
-electron.appSingleton = require("app").app;
+electron.appSingleton = require("electron").app;
 
 fluid.defaults("electron.app", {
     gradeNames: "fluid.modelComponent",

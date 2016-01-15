@@ -6,11 +6,12 @@ Infusion-Electron is a collection of [Fluid Infusion](https://github.com/fluid-p
 Using Infusion-Electron
 -----------------------
 
-1. Declare a dependency on <code>infusion-electron</code> in your application's <code>package.json</code> file:
+1. Declare dependencies on Infusion and <code>infusion-electron</code> in your application's <code>package.json</code> file:
 
     {
         "name": "my-infusion-electron-app",
         "dependencies": {
+            "infusion": "2.0.0-dev.20160115T165518Z.2f38c09",
             "infusion-electron": "0.3.0"
         }
     }
