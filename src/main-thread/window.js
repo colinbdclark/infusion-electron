@@ -47,7 +47,7 @@ fluid.defaults("electron.browserWindow", {
 
         "url": {
             "this": "{that}.win",
-            method: "loadUrl",
+            method: "loadURL",
             args: "{change}.value"
         },
 
