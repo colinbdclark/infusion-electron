@@ -19,11 +19,15 @@ electron.appSingleton = require("electron").app;
 fluid.defaults("electron.app", {
     gradeNames: "fluid.modelComponent",
 
-    members: {
-        app: electron.appSingleton
-    },
-
     commandLineSwitches: {},
+
+    members: {
+        app: electron.appSingleton,
+
+        env: {
+            appRootURL: "@expand:electron.app.getAppRootURL({that}.app)"
+        }
+    },
 
     windowListeners: {
         "onClose": "electron.app.quitOnAllClosed()"
@@ -73,4 +77,8 @@ electron.app.setCommandLineSwitches = function (app, commandLineSwitches) {
             app.commandLine.appendSwitch(switchName, value);
         }
     });
+};
+
+electron.app.getAppRootURL = function (app) {
+    return "file://" + app.getAppPath() + "/";
 };
