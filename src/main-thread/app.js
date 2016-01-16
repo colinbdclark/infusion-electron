@@ -25,7 +25,7 @@ fluid.defaults("electron.app", {
         app: electron.appSingleton,
 
         env: {
-            appRootURL: "@expand:electron.app.getAppRootURL({that}.app)"
+            appRootURL: "@expand:electron.getAppRootURL()"
         }
     },
 
@@ -77,8 +77,4 @@ electron.app.setCommandLineSwitches = function (app, commandLineSwitches) {
             app.commandLine.appendSwitch(switchName, value);
         }
     });
-};
-
-electron.app.getAppRootURL = function (app) {
-    return "file://" + app.getAppPath() + "/";
 };
