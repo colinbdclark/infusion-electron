@@ -11,7 +11,8 @@
     "readmeFilename": "README.md",
     "dependencies": {
         "infusion": "2.0.0-dev.20160115T165518Z.2f38c09",
-        "electron-prebuilt": "0.36.4"
+        "electron-prebuilt": "0.36.4",
+        "file-url": "1.0.1"
     },
     "devDependencies": {
         "grunt-contrib-jshint": "0.9.0",
