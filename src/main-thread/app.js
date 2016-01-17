@@ -26,8 +26,8 @@ fluid.defaults("electron.app", {
 
         env: {
             appRoot: {
-                url: "@expand:electron.getAppRootURL()",
-                path: "@expand:electron.getAppRootPath()"
+                url: "@expand:electron.getAppRootURL({that}.app)",
+                path: "@expand:electron.getAppRootPath({that}.app)"
             }
         }
     },

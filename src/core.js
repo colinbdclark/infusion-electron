@@ -20,15 +20,15 @@ var fluid = fluid || require("infusion");
     var electron = fluid.registerNamespace("electron"),
         fileUrl = require("file-url");
 
-    electron.getAppRootPath = function () {
-        return process.cwd() + "/";
+    electron.getAppRootPath = function (app) {
+        return app.getAppPath() + "/";
     };
 
     electron.urlForFilePath = function (path) {
         return fileUrl(path);
     };
 
-    electron.getAppRootURL = function () {
-        return electron.urlForFilePath(electron.getAppRootPath());
+    electron.getAppRootURL = function (app) {
+        return electron.urlForFilePath(electron.getAppRootPath(app));
     };
 }());
