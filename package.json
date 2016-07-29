@@ -10,12 +10,12 @@
     "homepage": "http://github.com/colinbdclark/infusion-electron",
     "readmeFilename": "README.md",
     "dependencies": {
-        "infusion": "2.0.0-dev.20160115T165518Z.2f38c09",
-        "electron-prebuilt": "0.36.4",
-        "file-url": "1.0.1"
+        "infusion": "2.0.0-dev.20160519T222603Z.754d2c6",
+        "electron-prebuilt": "1.3.1",
+        "file-url": "1.1.0"
     },
     "devDependencies": {
-        "grunt-contrib-jshint": "0.9.0",
-        "grunt": "0.4.5"
+        "grunt": "1.0.1",
+        "fluid-grunt-eslint": "18.1.1"
     }
 }

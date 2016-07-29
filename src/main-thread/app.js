@@ -12,9 +12,10 @@ https://github.com/colinbdclark/infusion-electron/raw/master/LICENSE.txt
 "use strict";
 
 var fluid = require("infusion"),
+    electronModule = require("electron"),
     electron = fluid.registerNamespace("electron");
 
-electron.appSingleton = require("electron").app;
+electron.appSingleton = electronModule.app;
 
 fluid.defaults("electron.app", {
     gradeNames: "fluid.modelComponent",
