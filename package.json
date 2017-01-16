@@ -10,8 +10,8 @@
     "homepage": "http://github.com/colinbdclark/infusion-electron",
     "readmeFilename": "README.md",
     "dependencies": {
-        "infusion": "2.0.0-dev.20161002T002156Z.a2802df",
-        "electron": "1.4.3",
+        "infusion": "2.0.0",
+        "electron": "1.4.14",
         "file-url": "1.1.0"
     },
     "devDependencies": {
