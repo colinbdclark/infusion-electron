@@ -1,7 +1,7 @@
 {
     "name": "infusion-electron",
     "description": "Infusion component wrappers for Atom Electron",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "main": "index.js",
     "author": "Colin Clark",
     "license": "BSD-3-Clause",
@@ -10,12 +10,12 @@
     "homepage": "http://github.com/colinbdclark/infusion-electron",
     "readmeFilename": "README.md",
     "dependencies": {
-        "infusion": "2.0.0",
-        "electron": "1.4.14",
-        "file-url": "1.1.0"
+        "infusion": "3.0.0-dev.20171102T191539Z.c0636b395",
+        "electron": "1.8.1",
+        "file-url": "2.0.2"
     },
     "devDependencies": {
         "grunt": "1.0.1",
-        "fluid-grunt-eslint": "18.1.1"
+        "fluid-grunt-eslint": "18.1.2"
     }
 }

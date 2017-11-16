@@ -11,8 +11,8 @@ Using infusion-electron
     {
         "name": "my-infusion-electron-app",
         "dependencies": {
-            "infusion": "2.0.0-dev.20160115T165518Z.2f38c09",
-            "infusion-electron": "0.3.0"
+            "infusion": "2.0.0",
+            "infusion-electron": "0.4.0"
         }
     }
 
