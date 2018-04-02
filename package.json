@@ -11,7 +11,7 @@
     "readmeFilename": "README.md",
     "dependencies": {
         "infusion": "3.0.0-dev.20171102T191539Z.c0636b395",
-        "electron": "1.8.1",
+        "electron": "1.8.4",
         "file-url": "2.0.2"
     },
     "devDependencies": {
