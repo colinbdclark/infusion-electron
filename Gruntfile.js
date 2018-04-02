@@ -9,21 +9,17 @@ You may obtain a copy of the 3-Clause "New" BSD License at
 https://github.com/colinbdclark/infusion-electron/raw/master/LICENSE.txt
 */
 
-module.exports = function(grunt) {
-    "use strict";
+"use strict";
 
+module.exports = function (grunt) {
     grunt.initConfig({
-        jshint: {
-            all: ["src/**/*.js"],
-            buildScripts: ["Gruntfile.js"],
-            options: {
-                jshintrc: true
-            }
+        eslint: {
+            all: ["src/**/*.js"]
         }
     });
 
-    grunt.loadNpmTasks("grunt-contrib-jshint");
+    grunt.loadNpmTasks("fluid-grunt-eslint");
 
-    grunt.registerTask("lint", "Apply jshint", ["jshint"]);
-    grunt.registerTask("default", ["jshint"]);
+    grunt.registerTask("lint", "Apply eslint", ["eslint"]);
+    grunt.registerTask("default", ["eslint"]);
 };

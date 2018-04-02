@@ -12,7 +12,8 @@ https://github.com/colinbdclark/infusion-electron/raw/master/LICENSE.txt
 "use strict";
 
 var fluid = require("infusion"),
-    BrowserWindow = require("browser-window"),
+    electronModule = require("electron"),
+    BrowserWindow = electronModule.BrowserWindow,
     $ = fluid.registerNamespace("jQuery"),
     electron = fluid.registerNamespace("electron");
 
@@ -47,7 +48,7 @@ fluid.defaults("electron.browserWindow", {
 
         "url": {
             "this": "{that}.win",
-            method: "loadUrl",
+            method: "loadURL",
             args: "{change}.value"
         },
 

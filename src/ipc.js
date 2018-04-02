@@ -12,14 +12,15 @@ https://github.com/colinbdclark/infusion-electron/raw/master/LICENSE.txt
 // Note: This file is intended to be run in both Node.js
 // and in Electron BrowserWindows, hence the additional
 // boilerplate typically only used in browser-facing scripts.
+"use strict";
+
 var fluid = fluid || require("infusion");
 
 (function () {
-    "use strict";
 
     var electron = fluid.registerNamespace("electron");
 
-    electron.ipc = require("ipc");
+    electron.ipc = require("electron").ipcMain;
 
     electron.ipcSender = function (channel, target) {
         var args = [channel];
@@ -103,4 +104,4 @@ var fluid = fluid || require("infusion");
             ]
         }
     });
-}());
+})();

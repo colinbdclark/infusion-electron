@@ -1,35 +1,48 @@
 infusion-electron
 =================
 
-Infusion-Electron is a collection of [Fluid Infusion](https://github.com/fluid-project/infusion) components that make it easier to use [Atom Electron](https://github.com/atom/electron).
+Infusion-Electron is a collection of [Fluid Infusion](https://github.com/fluid-project/infusion) components that make it easier to use [Electron](https://github.com/electron/electron).
 
-Using Infusion-Electron
+Using infusion-electron
 -----------------------
 
-### Deduplicating Infusion
-
-Fluid Infusion requires that a single instance of its module be loaded per Node.js application. To ensure that you don't have multiple copies of Infusion installed, you'll need to use the [dedupe-infusion](https://github.com/fluid-project/dedupe-infusion) after installing (or prior to running) your application. Here's how:
-
-In your <code>package.json</code>, you'll need to declare a dependency on <code>dedupe-infusion</code>:
+1. Declare dependencies on Infusion and <code>infusion-electron</code> in your application's <code>package.json</code> file:
 
     {
+        "name": "my-infusion-electron-app",
         "dependencies": {
-            "dedupe-infusion": "1.0.0"
+            "infusion": "2.0.0",
+            "infusion-electron": "0.4.0"
         }
     }
 
-And you'll also want to include a script that takes care of deduplicating after installation. Please note that npm's postinstall scripts are susceptible to race conditions and aren't appropriate for this task.
+2. <code>require()</code> Infusion and infusion-electron:
 
-    {
-        "scripts": {
-            "dedupe-infusion": "node -e \"require('dedupe-infusion')()\"",
-            "fullinstall": "npm install && npm run dedupe-infusion"
+    var fluid = require("infusion");
+    require("infusion-electron");
+
+3. Define your application component. Windows can be child components of your app:
+
+    fluid.defaults("myapp.app", {
+        gradeNames: "electron.app",
+
+        commandLineSwitches: {
+            "disable-renderer-backgrounding": null
+        },
+
+        components: {
+            mainWindow: {
+                createOnEvent: "onReady",
+                type: "electron.browserWindow",
+                options: {
+                    width: 1920,
+                    height: 1080,
+                    url: "html/main-window.html"
+                }
+            },
         }
-    }
+    });
 
-To install your application, you can run:
-
-    npm run fullinstall
 
 Attribution and License
 -----------------------
