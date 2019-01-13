@@ -1,5 +1,6 @@
 /*
-Copyright 2015 Colin Clark
+Infusion-Electron Window
+Copyright 2015-2019 Colin Clark
 
 Licensed under the 3-Clause "New" BSD license.
 You may not use this file except in compliance with one these
@@ -20,7 +21,8 @@ var fluid = require("infusion"),
 fluid.defaults("electron.browserWindow", {
     gradeNames: "fluid.modelComponent",
 
-    showOnCreate: true,
+    showOnCreate: false,
+    showOnReady: true,
 
     windowOptions: {},
 
@@ -29,7 +31,9 @@ fluid.defaults("electron.browserWindow", {
     },
 
     model: {
-        dimensions: {
+        bounds: {
+            x: 0,
+            y: 0,
             width: 0,
             height: 0
         },
@@ -40,10 +44,10 @@ fluid.defaults("electron.browserWindow", {
     },
 
     modelListeners: {
-        "dimensions": {
+        "bounds": {
             "this": "{that}.win",
-            method: "setSize",
-            args: ["{that}.model.dimensions.width", "{that}.model.dimensions.height"]
+            method: "setBounds",
+            args: ["{that}.model.bounds"]
         },
 
         "url": {
@@ -59,28 +63,37 @@ fluid.defaults("electron.browserWindow", {
     },
 
     events: {
+        onReadyToShow: null,
         onClose: null
     },
 
     listeners: {
-        onCreate: [
-            {
-                changePath: "isVisible",
-                value: "{that}.options.showOnCreate"
-            },
-            {
-                "this": "{that}.win",
-                method: "on",
-                args: ["close", "{that}.events.onClose.fire"]
-            }
-        ],
+        "onCreate.setVisibility": {
+            changePath: "isVisible",
+            value: "{that}.options.showOnCreate"
+        },
 
-        onDestroy: [
-            {
-                "this": "{that}.win",
-                method: "destroy"
-            }
-        ]
+        "onCreate.bindOnClose": {
+            "this": "{that}.win",
+            method: "on",
+            args: ["close", "{that}.events.onClose.fire"]
+        },
+
+        "onCreate.bindOnReadyToShow": {
+            "this": "{that}.win",
+            method: "on",
+            args: ["ready-to-show", "{that}.events.onReadyToShow.fire"]
+        },
+
+        "onReadyToShow.show": {
+            funcName: "electron.browserWindow.showOnReady",
+            args: ["{that}"]
+        },
+
+        "onDestroy.destroyWindow": {
+            "this": "{that}.win",
+            method: "destroy"
+        }
     }
 });
 
@@ -103,6 +116,11 @@ electron.browserWindow.updateVisibility = function (win, isVisible) {
     }
 };
 
+electron.browserWindow.showOnReady = function (that) {
+    if (that.options.showOnReady) {
+        that.applier.change("isVisible", true);
+    }
+};
 
 fluid.defaults("electron.unthrottledWindow", {
     gradeNames: "electron.browserWindow",

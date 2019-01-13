@@ -1,0 +1,17 @@
+{
+    "name": "infusion-electron-manual-test",
+    "productName": "infusion-electron Manual App Test",
+    "version": "1.0.0",
+    "main": "main.js",
+    "devDependencies": {
+        "electron": "4.0.1",
+        "electron-packager": "13.0.1"
+    },
+    "dependencies": {
+        "infusion-electron": "../.."
+    },
+    "scripts": {
+        "app": "node_modules/.bin/electron .",
+        "package-mac": "node_modules/.bin/electron-packager ./ --platform=darwin --arch=x64"
+    }
+}
