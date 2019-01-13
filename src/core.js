@@ -1,5 +1,6 @@
 /*
-Copyright 2016 Colin Clark
+Infusion-Electron Core
+Copyright 2016-2019 Colin Clark
 
 Licensed under the 3-Clause "New" BSD license.
 You may not use this file except in compliance with one these

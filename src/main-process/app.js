@@ -1,5 +1,6 @@
 /*
-Copyright 2015 Colin Clark
+Infusion-Electron App
+Copyright 2015-2019 Colin Clark
 
 Licensed under the 3-Clause "New" BSD license.
 You may not use this file except in compliance with one these
@@ -33,30 +34,27 @@ fluid.defaults("electron.app", {
         }
     },
 
-    windowListeners: {
-        "onClose": "electron.app.quitOnAllClosed()"
-    },
-
     events: {
         onReady: null,
         onAllWindowsClosed: null
     },
 
     listeners: {
-        "onCreate.setCommandLineSwitches": [
-            {
-                funcName: "electron.app.setCommandLineSwitches",
-                args: ["{that}.app", "{that}.options.commandLineSwitches"]
-            }
-        ],
+        "onCreate.setCommandLineSwitches": {
+            funcName: "electron.app.setCommandLineSwitches",
+            args: ["{that}.app", "{that}.options.commandLineSwitches"]
+        },
 
-        "onCreate.bindAppEvents": [
-            "electron.app.bindAppEvents({that}.app, {that}.events)"
-        ],
+        "onCreate.bindAppEvents": {
+            funcName: "electron.app.bindAppEvents",
+            args: ["{that}.app", "{that}.events"]
+        },
 
-        onAllWindowsClosed: [
-            "electron.app.handleAllWindowsClosed({that}.app)"
-        ]
+        "onAllWindowsClosed.quitIfNotMac": {
+            funcName: "electron.app.quitIfNotMac",
+            args: "{that}.app"
+        }
+
     }
 });
 
@@ -65,7 +63,7 @@ electron.app.bindAppEvents = function (app, events) {
     app.on("ready", events.onReady.fire);
 };
 
-electron.app.handleAllWindowsClosed = function (app) {
+electron.app.quitIfNotMac = function (app) {
     // On the Macintosh, in contrast to Linux and Windows,
     // applications should not quit when all their windows have been closed.
     if (process.platform !== "darwin") {

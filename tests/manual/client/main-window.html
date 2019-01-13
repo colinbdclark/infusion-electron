@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>infusion-electron Window Manual Test</title>
+    </head>
+    <body>
+        <h1>infusion-electron Window Manual Test</h1>
+
+        <script>
+            // TODO: Move this into a utility in infusion-electron.
+            document.addEventListener("keydown", function (e) {
+                if (e.which === 123) {
+                    require("remote").getCurrentWindow().toggleDevTools();
+                }
+            });
+        </script>
+    </body>
+</html>
