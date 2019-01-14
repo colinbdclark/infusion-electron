@@ -52,6 +52,17 @@ fluid.defaults("electron.tests.windowTester", {
                     expect: 1,
                     name: "Bounds",
                     sequence: [
+                        // The window's afterShow event may fire
+                        // synchronously before the sequence begins to
+                        // bind to it. This may not be an issue
+                        // once the potentia version of Infusion is
+                        // ready, but in the meantime we have to
+                        // manually trigger the construction of
+                        // the app's window at the beginning of
+                        // each sequence.
+                        {
+                            func: "{app}.events.onReady.fire"
+                        },
                         {
                             event: "{app windough}.events.afterShow",
                             listener: "electron.tests.windowTester.bounds",
@@ -64,6 +75,9 @@ fluid.defaults("electron.tests.windowTester", {
                     name: "Title",
                     sequence: [
                         {
+                            func: "{app}.events.onReady.fire"
+                        },
+                        {
                             funcName: "electron.tests.windowTester.title",
                             args: ["{app}.windough"]
                         }
@@ -72,14 +86,18 @@ fluid.defaults("electron.tests.windowTester", {
             ]
         },
         {
-            name: "Modelized bounds changes",
+            name: "Model changes",
             tests: [
                 {
-                    expect: 1,
-                    name: "Width",
+                    expect: 2,
+                    name: "Bounds",
                     sequence: [
                         {
-                            funcName: "electron.tests.windowTester.updateModel",
+                            func: "{app}.events.onReady.fire"
+                        },
+                        {
+                            event: "{app windough}.events.afterShow",
+                            listener: "electron.tests.windowTester.updateModel",
                             args: [
                                 "{app}.windough",
                                 "bounds.width",
@@ -89,13 +107,7 @@ fluid.defaults("electron.tests.windowTester", {
                         {
                             funcName: "electron.tests.windowTester.bounds",
                             args: ["{app}.windough"]
-                        }
-                    ]
-                },
-                {
-                    expect: 1,
-                    name: "Entire bounds",
-                    sequence: [
+                        },
                         {
                             funcName: "electron.tests.windowTester.updateModel",
                             args: [
@@ -114,6 +126,29 @@ fluid.defaults("electron.tests.windowTester", {
                             args: ["{app}.windough"]
                         }
                     ]
+                },
+                {
+                    expect: 1,
+                    name: "isShowing",
+                    sequence: [
+                        {
+                            func: "{app}.events.onReady.fire"
+                        },
+                        {
+                            event: "{app windough}.events.afterShow",
+                            listener: "electron.tests.windowTester.updateModel",
+                            args: [
+                                "{app}.windough",
+                                "isShowing",
+                                false
+                            ]
+                        },
+                        {
+                            event: "{app windough}.events.afterHide",
+                            listener: "electron.tests.windowTester.notShowing",
+                            args: ["{app}.windough.win"]
+                        }
+                    ]
                 }
             ]
         }
@@ -130,8 +165,13 @@ electron.tests.windowTester.title = function (windough) {
         windough.options.windowOptions.title, windough.win.getTitle());
 };
 
-electron.tests.windowTester.updateModel = function (windough, path, width) {
-    windough.applier.change(path, width);
+electron.tests.windowTester.notShowing = function (win) {
+    jqUnit.assertFalse("The window is not showing",
+        win.isVisible());
+};
+
+electron.tests.windowTester.updateModel = function (windough, path, value) {
+    windough.applier.change(path, value);
 };
 
 // TODO: Need tests for not showing a window when it's ready.

@@ -28,6 +28,8 @@ fluid.defaults("electron.browserWindow", {
             nodeIntegration: false
         },
 
+        show: "{that}.options.showOnCreate",
+
         width: 100,
         height: 100,
         x: 0,
@@ -40,13 +42,6 @@ fluid.defaults("electron.browserWindow", {
                 funcName: "electron.browserWindow.create",
                 args: ["{that}.options.windowOptions"]
             }
-        }
-    },
-
-    invokers: {
-        show: {
-            changePath: "isShowing",
-            value: true
         }
     },
 
@@ -85,6 +80,7 @@ fluid.defaults("electron.browserWindow", {
     events: {
         onReadyToShow: null,
         afterShow: null,
+        afterHide: null,
         afterResize: null,
         onClose: null
     },
@@ -108,6 +104,15 @@ fluid.defaults("electron.browserWindow", {
             ]
         },
 
+        "onCreate.bindAfterHide": {
+            "this": "{that}.win",
+            method: "on",
+            args: [
+                "hide",
+                "{that}.events.afterHide.fire"
+            ]
+        },
+
         "onCreate.bindAfterResize": {
             "this": "{that}.win",
             method: "on",
@@ -124,12 +129,6 @@ fluid.defaults("electron.browserWindow", {
                 "close",
                 "{that}.events.onClose.fire"
             ]
-        },
-
-        "onCreate.setIsShowing": {
-            priority: "after:bindAfterShow",
-            changePath: "isShowing",
-            value: "{that}.options.showOnCreate"
         },
 
         "onReadyToShow.show": {
