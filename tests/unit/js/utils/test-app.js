@@ -15,5 +15,5 @@ https://github.com/colinbdclark/infusion-electron/raw/master/LICENSE.txt
 var fluid = require("infusion");
 
 fluid.defaults("electron.tests.testApp", {
-    gradeNames: "electron.app"
+    gradeNames: ["electron.app", "electron.app.dontQuitOnAllWindowsClosed"]
 });

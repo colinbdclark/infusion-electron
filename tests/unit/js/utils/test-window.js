@@ -19,10 +19,10 @@ fluid.defaults("electron.tests.testWindow", {
 
     windowOptions: {
         title: "A Window for Testing",
-        height: 200,
+        height: 300,
         width: 300,
         x: 50,
-        y: 55
+        y: 50
     },
 
     model: {

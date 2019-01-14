@@ -112,3 +112,17 @@ electron.app.setCommandLineSwitches = function (app, commandLineSwitches) {
         }
     });
 };
+
+fluid.defaults("electron.app.dontQuitOnAllWindowsClosed", {
+    listeners: {
+        // Overrides the default behaviour of electron.app,
+        // where, on Windows and Linux, the app will quit itself if
+        // all its BrowserWindows are closed.
+        // This grade can be helpful for testing or in application that
+        // should stay alive until explicitly quit by the user.
+        "onAllWindowsClosed.quitIfNotMac": {
+            funcName: "fluid.identity",
+            args: []
+        }
+    }
+});
