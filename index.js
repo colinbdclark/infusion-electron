@@ -14,6 +14,7 @@ https://github.com/colinbdclark/infusion-electron/raw/master/LICENSE.txt
 var fluid = require("infusion");
 
 var electron = fluid.registerNamespace("electron");
+fluid.module.register("electron", __dirname, require);
 
 require("./src/core.js");
 require("./src/ipc.js");

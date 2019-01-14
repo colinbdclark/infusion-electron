@@ -101,6 +101,8 @@ electron.app.quitIfNotMac = function (app) {
     }
 };
 
+// TODO: Will need a mock app to test this function, because
+// Electron's API won't allow us to see the commandLine's state.
 electron.app.setCommandLineSwitches = function (app, commandLineSwitches) {
     fluid.each(commandLineSwitches, function (value, switchName) {
         if (value === null) {

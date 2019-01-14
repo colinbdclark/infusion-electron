@@ -16,6 +16,10 @@
     },
     "devDependencies": {
         "grunt": "1.0.3",
-        "fluid-grunt-eslint": "18.1.2"
+        "fluid-grunt-eslint": "18.1.2",
+        "node-jqunit": "1.1.8"
+    },
+    "scripts": {
+        "test": "node_modules/.bin/electron tests/unit/all-tests.js"
     }
 }

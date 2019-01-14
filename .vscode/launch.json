@@ -1,11 +1,19 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug Manual Test App",
+            "type": "node",
+            "request": "launch",
+            "name": "Unit Tests",
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
+            "windows": {
+              "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
+            },
+            "args" : ["tests/unit/all-tests.js"]
+        },
+        {
+            "name": "Manual Test App",
             "type": "node",
             "request": "launch",
             "cwd": "${workspaceRoot}/tests/manual/",
@@ -14,7 +22,6 @@
               "runtimeExecutable": "${workspaceRoot}/tests/manual/node_modules/.bin/electron.cmd"
             },
             "args" : ["."]
-
         }
     ]
 }
