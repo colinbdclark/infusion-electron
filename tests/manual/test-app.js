@@ -22,7 +22,9 @@ fluid.defaults("electronTest.app", {
             type: "electron.browserWindow",
             options: {
                 windowOptions: {
-                    title: "infusion-electron Manual Test Window"
+                    title: "infusion-electron Manual Test Window",
+                    width: 720,
+                    height: 480
                 },
 
                 model: {
@@ -34,11 +36,6 @@ fluid.defaults("electronTest.app", {
                                 "{app}.env.appRoot"
                             ]
                         }
-                    },
-
-                    bounds: {
-                        width: 720,
-                        height: 480
                     }
                 }
             }
