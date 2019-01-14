@@ -1,7 +1,7 @@
 {
     "name": "infusion-electron",
-    "description": "Infusion component wrappers for Atom Electron",
-    "version": "0.5.0",
+    "description": "Infusion component wrappers for Electron",
+    "version": "0.6.0",
     "main": "index.js",
     "author": "Colin Clark",
     "license": "BSD-3-Clause",
