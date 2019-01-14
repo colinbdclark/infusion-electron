@@ -78,7 +78,7 @@ fluid.defaults("electron.browserWindow", {
 
         "isShowing": {
             funcName: "electron.browserWindow.updateShowing",
-            args: ["{that}.win", "{change}.value"]
+            args: ["{that}.win", "{change}"]
         }
     },
 
@@ -148,10 +148,11 @@ electron.browserWindow.create = function (windowOptions) {
     return new BrowserWindow(windowOptions);
 };
 
-electron.browserWindow.updateShowing = function (win, isShowing) {
-    if (isShowing) {
+electron.browserWindow.updateShowing = function (win, change) {
+    if (change.value) {
         win.show();
-    } else {
+    } else if (change.oldValue) {
+        // Only hide if the window was previously showing.
         win.hide();
     }
 };
