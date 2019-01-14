@@ -22,9 +22,6 @@ fluid.defaults("electronTest.app", {
             createOnEvent: "onReady",
             type: "electron.browserWindow",
             options: {
-                showOnCreate: false,
-                showOnReady: true,
-
                 windowOptions: {
                     title: "infusion-electron Manual Test Window"
                 },
@@ -33,7 +30,10 @@ fluid.defaults("electronTest.app", {
                     url: {
                         expander: {
                             funcName: "fluid.stringTemplate",
-                            args: ["%url/src/client/html/main-window.html", "{app}.env.appRoot"]
+                            args: [
+                                "%url/client/main-window.html",
+                                "{app}.env.appRoot"
+                            ]
                         }
                     },
 

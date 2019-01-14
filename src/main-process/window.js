@@ -24,10 +24,25 @@ fluid.defaults("electron.browserWindow", {
     showOnCreate: false,
     showOnReady: true,
 
-    windowOptions: {},
+    windowOptions: {
+        webPreferences: {
+            nodeIntegration: false
+        },
+
+        // These are the window's initial size only;
+        // the bounds of the window will be updated when the
+        // component's model initializes.
+        width: 0,
+        height: 0
+    },
 
     members: {
-        win: "@expand:electron.browserWindow.create({that}.options.windowOptions)"
+        win: {
+            expander: {
+                funcName: "electron.browserWindow.create",
+                args: ["{that}.options.windowOptions"]
+            }
+        }
     },
 
     model: {
@@ -98,14 +113,7 @@ fluid.defaults("electron.browserWindow", {
 });
 
 electron.browserWindow.create = function (windowOptions) {
-    // The window size will always be initially be zero,
-    // and when the model initializes, its dimensions will be updated.
-    var o = $.extend(true, {}, windowOptions, {
-        width: 0,
-        height: 0
-    });
-
-    return new BrowserWindow(o);
+    return new BrowserWindow(windowOptions);
 };
 
 electron.browserWindow.updateVisibility = function (win, isVisible) {
