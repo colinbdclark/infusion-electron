@@ -8,7 +8,11 @@ Licenses.
 You may obtain a copy of the 3-Clause "New" BSD License at
 https://github.com/colinbdclark/infusion-electron/raw/master/LICENSE.txt
 */
+
+"use strict";
+
 var fluid = require("infusion");
+require("infusion-electron");
 require("./test-app.js");
 
 var electronTest = fluid.registerNamespace("electronTest");

@@ -12,8 +12,9 @@ https://github.com/colinbdclark/infusion-electron/raw/master/LICENSE.txt
 
 "use strict";
 
-var fluid = require("infusion"),
-    electron = fluid.require(__dirname + "/../../index.js");
+var fluid = require("infusion");
 
+fluid.loadTestingSupport();
+fluid.require(__dirname + "/../../index.js");
 fluid.require("%infusion-electron/tests/unit/js/app-tests.js");
 fluid.require("%infusion-electron/tests/unit/js/window-tests.js");

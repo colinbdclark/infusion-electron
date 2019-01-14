@@ -16,7 +16,6 @@ var fluid = require("infusion"),
     jqUnit = require("node-jqunit"),
     electron = fluid.registerNamespace("electron");
 
-fluid.loadTestingSupport();
 fluid.require("%infusion-electron/tests/unit/js/utils/test-app.js");
 
 fluid.defaults("electron.tests.appTestEnvironment", {

@@ -11,8 +11,7 @@ https://github.com/colinbdclark/infusion-electron/raw/master/LICENSE.txt
 
 "use strict";
 
-var fluid = require("infusion"),
-    electron = require("infusion-electron");
+var fluid = require("infusion");
 
 fluid.defaults("electronTest.app", {
     gradeNames: "electron.app",
