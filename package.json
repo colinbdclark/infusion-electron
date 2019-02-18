@@ -11,10 +11,10 @@
     "readmeFilename": "README.md",
     "dependencies": {
         "infusion": "3.0.0-dev.20181204T213346Z.2ca90f6e6",
-        "electron": "4.0.1",
         "file-url": "2.0.2"
     },
     "devDependencies": {
+        "electron": "4.0.5",
         "grunt": "1.0.3",
         "fluid-grunt-eslint": "18.1.2",
         "node-jqunit": "1.1.8"
