@@ -1,5 +1,6 @@
 /*
-Copyright 2015 Colin Clark
+Infusion-Electron All Tests
+Copyright 2019 Colin Clark
 
 Licensed under the 3-Clause "New" BSD license.
 You may not use this file except in compliance with one these
@@ -13,12 +14,7 @@ https://github.com/colinbdclark/infusion-electron/raw/master/LICENSE.txt
 
 var fluid = require("infusion");
 
-var electron = fluid.registerNamespace("electron");
-fluid.module.register("electron", __dirname, require);
-
-require("./src/core.js");
-require("./src/ipc.js");
-require("./src/main-process/app.js");
-require("./src/main-process/window.js");
-
-module.exports = electron;
+fluid.loadTestingSupport();
+fluid.require(__dirname + "/../../index.js");
+fluid.require("%infusion-electron/tests/unit/js/app-tests.js");
+fluid.require("%infusion-electron/tests/unit/js/window-tests.js");

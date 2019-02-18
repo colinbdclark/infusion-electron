@@ -15,7 +15,6 @@ https://github.com/colinbdclark/infusion-electron/raw/master/LICENSE.txt
 var fluid = require("infusion"),
     electronModule = require("electron"),
     BrowserWindow = electronModule.BrowserWindow,
-    $ = fluid.registerNamespace("jQuery"),
     electron = fluid.registerNamespace("electron");
 
 fluid.defaults("electron.browserWindow", {
@@ -24,23 +23,39 @@ fluid.defaults("electron.browserWindow", {
     showOnCreate: false,
     showOnReady: true,
 
-    windowOptions: {},
+    windowOptions: {
+        webPreferences: {
+            nodeIntegration: false
+        },
+
+        show: "{that}.options.showOnCreate",
+
+        width: 100,
+        height: 100,
+        x: 0,
+        y: 0
+    },
 
     members: {
-        win: "@expand:electron.browserWindow.create({that}.options.windowOptions)"
+        win: {
+            expander: {
+                funcName: "electron.browserWindow.create",
+                args: ["{that}.options.windowOptions"]
+            }
+        }
     },
 
     model: {
         bounds: {
-            x: 0,
-            y: 0,
-            width: 0,
-            height: 0
+            height: "{that}.options.windowOptions.height",
+            width: "{that}.options.windowOptions.width",
+            x: "{that}.options.windowOptions.x",
+            y: "{that}.options.windowOptions.y"
         },
 
         url: "",
 
-        isVisible: false
+        isShowing: false
     },
 
     modelListeners: {
@@ -56,33 +71,64 @@ fluid.defaults("electron.browserWindow", {
             args: "{change}.value"
         },
 
-        "isVisible": {
-            funcName: "electron.browserWindow.updateVisibility",
-            args: ["{that}.win", "{change}.value"]
+        "isShowing": {
+            funcName: "electron.browserWindow.updateShowing",
+            args: ["{that}.win", "{change}"]
         }
     },
 
     events: {
         onReadyToShow: null,
+        afterShow: null,
+        afterHide: null,
+        afterResize: null,
         onClose: null
     },
 
     listeners: {
-        "onCreate.setVisibility": {
-            changePath: "isVisible",
-            value: "{that}.options.showOnCreate"
+        "onCreate.bindOnReadyToShow": {
+            "this": "{that}.win",
+            method: "on",
+            args: [
+                "ready-to-show",
+                "{that}.events.onReadyToShow.fire"
+            ]
+        },
+
+        "onCreate.bindAfterShow": {
+            "this": "{that}.win",
+            method: "on",
+            args: [
+                "show",
+                "{that}.events.afterShow.fire"
+            ]
+        },
+
+        "onCreate.bindAfterHide": {
+            "this": "{that}.win",
+            method: "on",
+            args: [
+                "hide",
+                "{that}.events.afterHide.fire"
+            ]
+        },
+
+        "onCreate.bindAfterResize": {
+            "this": "{that}.win",
+            method: "on",
+            args: [
+                "resize",
+                "{that}.events.afterResize.fire"
+            ]
         },
 
         "onCreate.bindOnClose": {
             "this": "{that}.win",
             method: "on",
-            args: ["close", "{that}.events.onClose.fire"]
-        },
-
-        "onCreate.bindOnReadyToShow": {
-            "this": "{that}.win",
-            method: "on",
-            args: ["ready-to-show", "{that}.events.onReadyToShow.fire"]
+            args: [
+                "close",
+                "{that}.events.onClose.fire"
+            ]
         },
 
         "onReadyToShow.show": {
@@ -98,27 +144,21 @@ fluid.defaults("electron.browserWindow", {
 });
 
 electron.browserWindow.create = function (windowOptions) {
-    // The window size will always be initially be zero,
-    // and when the model initializes, its dimensions will be updated.
-    var o = $.extend(true, {}, windowOptions, {
-        width: 0,
-        height: 0
-    });
-
-    return new BrowserWindow(o);
+    return new BrowserWindow(windowOptions);
 };
 
-electron.browserWindow.updateVisibility = function (win, isVisible) {
-    if (isVisible) {
+electron.browserWindow.updateShowing = function (win, change) {
+    if (change.value) {
         win.show();
-    } else {
+    } else if (change.oldValue) {
+        // Only hide if the window was previously showing.
         win.hide();
     }
 };
 
 electron.browserWindow.showOnReady = function (that) {
     if (that.options.showOnReady) {
-        that.applier.change("isVisible", true);
+        that.applier.change("isShowing", true);
     }
 };
 

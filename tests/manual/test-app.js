@@ -11,8 +11,7 @@ https://github.com/colinbdclark/infusion-electron/raw/master/LICENSE.txt
 
 "use strict";
 
-var fluid = require("infusion"),
-    electron = require("infusion-electron");
+var fluid = require("infusion");
 
 fluid.defaults("electronTest.app", {
     gradeNames: "electron.app",
@@ -22,24 +21,21 @@ fluid.defaults("electronTest.app", {
             createOnEvent: "onReady",
             type: "electron.browserWindow",
             options: {
-                showOnCreate: false,
-                showOnReady: true,
-
                 windowOptions: {
-                    title: "infusion-electron Manual Test Window"
+                    title: "infusion-electron Manual Test Window",
+                    width: 720,
+                    height: 480
                 },
 
                 model: {
                     url: {
                         expander: {
                             funcName: "fluid.stringTemplate",
-                            args: ["%url/src/client/html/main-window.html", "{app}.env.appRoot"]
+                            args: [
+                                "%url/client/main-window.html",
+                                "{app}.env.appRoot"
+                            ]
                         }
-                    },
-
-                    bounds: {
-                        width: 720,
-                        height: 480
                     }
                 }
             }

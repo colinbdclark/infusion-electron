@@ -14,7 +14,11 @@ https://github.com/colinbdclark/infusion-electron/raw/master/LICENSE.txt
 module.exports = function (grunt) {
     grunt.initConfig({
         eslint: {
-            all: ["src/**/*.js"]
+            all: [
+                "src/**/*.js",
+                "tests/**/*.js",
+                "!tests/manual/node_modules/**/*.js"
+            ]
         }
     });
 
