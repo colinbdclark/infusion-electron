@@ -14,7 +14,7 @@
         "file-url": "3.0.0"
     },
     "devDependencies": {
-        "electron": "6.0.8",
+        "electron": "9.1.0",
         "grunt": "1.0.4",
         "fluid-grunt-eslint": "18.1.2",
         "node-jqunit": "1.1.8"
