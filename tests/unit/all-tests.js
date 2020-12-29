@@ -16,5 +16,7 @@ var fluid = require("infusion");
 
 fluid.loadTestingSupport();
 fluid.require(__dirname + "/../../index.js");
+
 fluid.require("%infusion-electron/tests/unit/js/app-tests.js");
 fluid.require("%infusion-electron/tests/unit/js/window-tests.js");
+fluid.require("%infusion-electron/tests/unit/js/ipc-tests.js");

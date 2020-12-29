@@ -13,7 +13,6 @@ https://github.com/colinbdclark/infusion-electron/raw/master/LICENSE.txt
 "use strict";
 
 var fluid = require("infusion"),
-    electronModule = require("electron"),
     electron = fluid.registerNamespace("electron");
 
 /**
@@ -41,7 +40,7 @@ electron.fireAppReady = function (fireFn) {
 /**
  * A global reference to Electron's app instance singleton.
  */
-electron.appSingleton = electronModule.app;
+electron.appSingleton = electron.module.app;
 
 electron.appSingleton.on("ready", electron.appReadyListener);
 

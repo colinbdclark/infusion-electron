@@ -52,17 +52,6 @@ fluid.defaults("electron.tests.windowTester", {
                     expect: 1,
                     name: "Bounds",
                     sequence: [
-                        // The window's afterShow event may fire
-                        // synchronously before the sequence begins to
-                        // bind to it. This may not be an issue
-                        // once the potentia version of Infusion is
-                        // ready, but in the meantime we have to
-                        // manually trigger the construction of
-                        // the app's window at the beginning of
-                        // each sequence.
-                        {
-                            func: "{app}.events.onReady.fire"
-                        },
                         {
                             event: "{app windough}.events.afterShow",
                             listener: "electron.tests.windowTester.bounds",
@@ -74,9 +63,6 @@ fluid.defaults("electron.tests.windowTester", {
                     expect: 1,
                     name: "Title",
                     sequence: [
-                        {
-                            func: "{app}.events.onReady.fire"
-                        },
                         {
                             funcName: "electron.tests.windowTester.title",
                             args: ["{app}.windough"]
@@ -93,11 +79,7 @@ fluid.defaults("electron.tests.windowTester", {
                     name: "Bounds",
                     sequence: [
                         {
-                            func: "{app}.events.onReady.fire"
-                        },
-                        {
-                            event: "{app windough}.events.afterShow",
-                            listener: "electron.tests.windowTester.updateModel",
+                            funcName: "electron.tests.windowTester.updateModel",
                             args: [
                                 "{app}.windough",
                                 "bounds.width",
@@ -132,13 +114,8 @@ fluid.defaults("electron.tests.windowTester", {
                     name: "isShowing",
                     sequence: [
                         {
-                            func: "{app}.events.onReady.fire"
-                        },
-                        {
-                            event: "{app windough}.events.afterShow",
-                            listener: "electron.tests.windowTester.updateModel",
+                            func: "{app}.windough.applier.change",
                             args: [
-                                "{app}.windough",
                                 "isShowing",
                                 false
                             ]

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <script src="../../../src/renderer-process/namespace-electron-globals.js"></script>
+        <script src="../../../node_modules/infusion/dist/infusion-all.js"></script>
+        <script src="../../../src/ipc-common.js"></script>
+        <script src="../../../src/renderer-process/ipc-renderer.js"></script>
+        <script src="../js/ipc-tests-renderer.js"></script>
+
+        <title>infusion-electron IPC Test Window</title>
+    </head>
+    <body>
+        <h1>This window uses IPC!</h1>
+
+        <script>
+            window.ipcListenerResponder = electron.tests.ipcListenerResponder();
+        </script>
+    </body>
+</html>

@@ -13,9 +13,8 @@ https://github.com/colinbdclark/infusion-electron/raw/master/LICENSE.txt
 "use strict";
 
 var fluid = require("infusion"),
-    electronModule = require("electron"),
-    BrowserWindow = electronModule.BrowserWindow,
-    electron = fluid.registerNamespace("electron");
+    electron = fluid.registerNamespace("electron"),
+    BrowserWindow = electron.module.BrowserWindow;
 
 fluid.defaults("electron.browserWindow", {
     gradeNames: "fluid.modelComponent",
@@ -25,7 +24,8 @@ fluid.defaults("electron.browserWindow", {
 
     windowOptions: {
         webPreferences: {
-            nodeIntegration: false
+            nodeIntegration: false,
+            contextIsolation: true
         },
 
         show: "{that}.options.showOnCreate",
@@ -169,5 +169,18 @@ fluid.defaults("electron.unthrottledWindow", {
         "web-preferences": {
             "page-visibility": true
         }
+    }
+});
+
+
+fluid.defaults("electron.ipcWindow", {
+    gradeNames: [
+        "electron.ipcComponent",
+        "electron.browserWindow"
+    ],
+
+    members: {
+        source: electron.module.ipcMain,
+        target: "{that}.win.webContents"
     }
 });
