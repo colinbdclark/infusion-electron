@@ -15,9 +15,11 @@ var fluid = require("infusion");
 
 var electron = fluid.registerNamespace("electron");
 fluid.module.register("electron", __dirname, require);
+electron.module = require("electron");
 
 require("./src/core.js");
-require("./src/ipc.js");
+require("./src/ipc-common.js");
+require("./src/main-process/ipc-main.js");
 require("./src/main-process/app.js");
 require("./src/main-process/window.js");
 

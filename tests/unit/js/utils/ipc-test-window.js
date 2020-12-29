@@ -12,21 +12,23 @@ https://github.com/colinbdclark/infusion-electron/raw/master/LICENSE.txt
 
 "use strict";
 
-var fluid = require("infusion");
+var fluid = require("infusion"),
+    electron = fluid.registerNamespace("electron");
 
-fluid.defaults("electron.tests.testWindow", {
-    gradeNames: "electron.browserWindow",
+fluid.defaults("electron.tests.ipcTestWindow", {
+    gradeNames: [
+        "electron.ipcWindow",
+        "electron.tests.testWindow"
+    ],
 
-    showOnCreate: false,
+    channel: "test",
 
     windowOptions: {
-        title: "A Window for Testing",
-        width: 800,
-        height: 600,
-        x: 50,
-        y: 50,
+        title: "A Window for IPC Testing",
+
         webPreferences: {
-            devTools: true
+            contextIsolation: false,
+            nodeIntegration: true
         }
     },
 
@@ -35,10 +37,11 @@ fluid.defaults("electron.tests.testWindow", {
             expander: {
                 funcName: "fluid.stringTemplate",
                 args: [
-                    "%url/html/test-window.html",
+                    "%url/html/ipc-test-window.html",
                     "{app}.env.appRoot"
                 ]
             }
         }
     }
 });
+
