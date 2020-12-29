@@ -1,5 +1,5 @@
 /*
-Infusion-Electron Window Tests
+Infusion-Electron IPC Tests
 Copyright 2019 Colin Clark
 
 Licensed under the 3-Clause "New" BSD license.

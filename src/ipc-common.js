@@ -84,10 +84,8 @@ fluid.defaults("electron.ipcMessageRelayer", {
     gradeNames: ["electron.ipcComponent", "fluid.modelComponent"],
 
     listeners: {
-        onMessage: [
-            {
-                func: "{that}.send"
-            }
-        ]
+        "onMessage.relayToSource": {
+            func: "{that}.send"
+        }
     }
 });

@@ -12,8 +12,9 @@ https://github.com/colinbdclark/infusion-electron/raw/master/LICENSE.txt
 
 "use strict";
 
-var fluid = require("infusion"),
-    electron = fluid.registerNamespace("electron");
+var fluid = require("infusion");
+
+fluid.registerNamespace("electron");
 
 fluid.defaults("electron.tests.ipcTestWindow", {
     gradeNames: [
