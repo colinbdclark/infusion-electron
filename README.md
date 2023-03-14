@@ -1,10 +1,9 @@
-infusion-electron
-=================
+# infusion-electron
 
-Infusion-Electron is a collection of [Fluid Infusion](https://github.com/fluid-project/infusion) components that make it easier to use [Electron](https://github.com/electron/electron).
+Infusion-Electron is a collection of [Fluid Infusion](https://github.com/fluid-project/infusion)
+components that make it easier to use [Electron](https://github.com/electron/electron).
 
-Using infusion-electron
------------------------
+## Using infusion-electron
 
 1. Declare dependencies on Infusion and <code>infusion-electron</code> in your application's <code>package.json</code> file:
 
@@ -43,8 +42,6 @@ Using infusion-electron
         }
     });
 
-
-Attribution and License
------------------------
+## Attribution and License
 
 This library was written by Colin Clark and is distributed under the "new" BSD 3-clause license.

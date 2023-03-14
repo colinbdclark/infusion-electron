@@ -1,0 +1,45 @@
+{
+    "eslint": {
+        "js": {
+            "excludes": [".DS_Store", "node_modules"]
+        },
+
+        "json": {
+            "excludes": [".DS_Store", "node_modules"]
+        },
+
+        "md": {
+            "excludes": [".DS_Store", "node_modules"]
+        }
+    },
+
+    "json5lint": {
+        "excludes": [".DS_Store", "node_modules"]
+    },
+
+    "jsonlint": {
+        "excludes": [".DS_Store", "node_modules"]
+    },
+
+    "lintspaces": {
+        "jsonindentation": {
+            "excludes": [".DS_Store", "node_modules"]
+        },
+
+        "newlines": {
+            "excludes": [".DS_Store", "node_modules"]
+        }
+    },
+    "markdownlint": {
+        "excludes": [".DS_Store", "node_modules"]
+    },
+    "mdjsonlint": {
+        "excludes": [".DS_Store", "node_modules"]
+    },
+    "stylelint": {
+        "excludes": [".DS_Store", "node_modules"]
+    },
+    "yaml": {
+        "excludes": [".DS_Store", "node_modules"]
+    }
+}

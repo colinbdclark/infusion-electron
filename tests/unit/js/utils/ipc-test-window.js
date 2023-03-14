@@ -45,4 +45,3 @@ fluid.defaults("electron.tests.ipcTestWindow", {
         }
     }
 });
-
